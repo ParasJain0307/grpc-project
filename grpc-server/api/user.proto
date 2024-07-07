@@ -2,6 +2,7 @@ syntax="proto3";
 
 option go_package = "./";
 
+
 package users;
 
 message User {
@@ -21,14 +22,29 @@ message GetUsersByIDRequest {
     repeated int32 user_ids = 1;
 }
 
+// Wrapper message to hold different types of field values
+// message FieldValueWrapper {
+//     google.protobuf.Any value = 1;
+// }
+
 message UsersList {
     repeated User users = 1;
 }
 
-message SearchUsersRequest {
-    string criteria = 1;
+// Define a new message to represent search criteria
+message SearchCriteria {
+    string field_name = 1;  // Field name to search against (e.g., "fname", "city", "phone", ...)
+    string field_value = 2; // Value to search for in the specified field
 }
 
+// // Define a new message to represent search criteria
+// message SearchCriteria {
+//     string field_name = 1;  // Field name to search against (e.g., "fname", "city", "phone", ...)
+//     FieldValueWrapper field_value = 2; // Value to search for in the specified field
+// }
+message SearchUsersRequest {
+    repeated SearchCriteria criterias = 1; // List of search criteria
+}
 service UserService {
     rpc GetUserByID (GetUserByIDRequest) returns (User) {}
     rpc GetUsersByID (GetUsersByIDRequest) returns (UsersList) {}

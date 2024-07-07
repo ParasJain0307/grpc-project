@@ -45,7 +45,8 @@ func (s *UserService) GetUsersByID(ctx context.Context, req *pb.GetUsersByIDRequ
 func (s *UserService) SearchUsers(ctx context.Context, req *pb.SearchUsersRequest) (*pb.UsersList, error) {
 	// Example implementation searching users based on criteria
 	log.Println("Request Received", req)
-	users, err := s.Database.SearchUsers(req.Criteria)
+	criteria := req.GetCriterias()
+	users, err := s.Database.SearchUsers(criteria)
 	if err != nil {
 		return nil, err
 	}

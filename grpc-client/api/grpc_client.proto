@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+option go_package = "./";
+
+package users;
+
+message User {
+    int32 id = 1;
+    string fname = 2;
+    string city = 3;
+    int64 phone = 4;
+    float height = 5;
+    bool married = 6;
+}
+
+// Define a new message to represent search criteria
+message SearchCriteria {
+    string field_name = 1;  // Field name to search against (e.g., "fname", "city", "phone", ...)
+    string field_value = 2; // Value to search for in the specified field
+}
+
+message GetUserByIDRequest {
+    int32 user_id = 1;
+}
+
+message GetUsersByIDRequest {
+    repeated int32 user_ids = 1;
+}
+
+message UsersList {
+    repeated User users = 1;
+}
+
+message SearchUsersRequest {
+    repeated SearchCriteria criterias = 1; // List of search criteria
+}
+
+service UserService {
+    rpc GetUserByID (GetUserByIDRequest) returns (User) {}
+    rpc GetUsersByID (GetUsersByIDRequest) returns (UsersList) {}
+    rpc SearchUsers (SearchUsersRequest) returns (UsersList) {}
+}

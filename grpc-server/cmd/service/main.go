@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net"
 
@@ -13,9 +12,7 @@ import (
 
 func main() {
 	//Initialize the simulated Database
-	db, _ := database.NewDatabase("/home/paras/grpc-project/grpc-project/grpc-server/internal/utils/simulated_entry.json")
-
-	fmt.Println(db)
+	db, _ := database.NewDatabase("/home/paras/grpc-project/backup/grpc-project/grpc-server/internal/utils/simulated_entry.json")
 	grpcServer := grpc.NewServer()
 	// Register service implementation with the server
 	pb.RegisterUserServiceServer(grpcServer, &service.UserService{

@@ -4,7 +4,9 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"log"
 	"os"
+	"strconv"
 
 	pb "github.com/ParasJain0307/grpc-project/grpc-server/api" // Replace with your actual package path
 )
@@ -21,8 +23,6 @@ func NewDatabase(jsonPath string) (*Database, error) {
 		fmt.Println(err)
 		return nil, fmt.Errorf("error reading JSON file: %v", err)
 	}
-	fmt.Println(jsonData)
-
 	// Unmarshal JSON directly into a slice of map[string]interface{}
 	var users []map[string]interface{}
 	err = json.Unmarshal(jsonData, &users)
@@ -74,16 +74,62 @@ func (d *Database) GetUsersByID(ids []int32) ([]*pb.User, error) {
 }
 
 // SearchUsers searches users based on criteria in the datastore
-func (d *Database) SearchUsers(criteria string) ([]*pb.User, error) {
+func (d *Database) SearchUsers(criteria []*pb.SearchCriteria) ([]*pb.User, error) {
 	var users []*pb.User
 	for _, user := range d.users {
 		// Example search criteria (can be customized)
-		if user.City == criteria {
+		if matchCriteria(user, criteria) {
 			users = append(users, user)
 		}
+
 	}
 	if len(users) == 0 {
 		return nil, errors.New("Request User Info does not Exist")
 	}
+	log.Println("Counts of the User with given criteria:: ", len(users))
 	return users, nil
+}
+
+// Function to check if a user matches the search criteria
+func matchCriteria(user *pb.User, criterias []*pb.SearchCriteria) bool {
+	// Iterate over criterias and check each one against user's attributes
+	for _, criteria := range criterias {
+		if !checkSingleCriteria(user, criteria) {
+			return false
+		}
+	}
+	return true
+}
+
+// checkSingleCriteria checks if a user matches a single criteria
+func checkSingleCriteria(user *pb.User, criteria *pb.SearchCriteria) bool {
+	switch criteria.FieldName {
+	case "fname":
+		if user.Fname != criteria.FieldValue {
+			return false
+		}
+	case "city":
+		if user.City != criteria.FieldValue {
+			return false
+		}
+	case "phone":
+		phone, err := strconv.ParseInt(criteria.FieldValue, 10, 64)
+		if err != nil || user.Phone != phone {
+			return false
+		}
+	case "height":
+		height, err := strconv.ParseFloat(criteria.FieldValue, 32)
+		if err != nil || float32(height) != user.Height {
+			return false
+		}
+	case "married":
+		married, err := strconv.ParseBool(criteria.FieldValue)
+		if err != nil || user.Married != married {
+			return false
+		}
+	default:
+		return false
+	}
+
+	return true
 }
