@@ -1,0 +1,403 @@
+[
+    {
+      "id": 1,
+      "fname": "Steve",
+      "city": "LA",
+      "phone": 1234567890,
+      "height": 5.8,
+      "married": true
+    },
+    {
+      "id": 2,
+      "fname": "Alice",
+      "city": "NY",
+      "phone": 9876543210,
+      "height": 5.5,
+      "married": false
+    },
+    {
+      "id": 3,
+      "fname": "John",
+      "city": "Chicago",
+      "phone": 5551234567,
+      "height": 6.0,
+      "married": true
+    },
+    {
+      "id": 4,
+      "fname": "Emily",
+      "city": "San Francisco",
+      "phone": 5559876543,
+      "height": 5.9,
+      "married": false
+    },
+    {
+      "id": 5,
+      "fname": "Michael",
+      "city": "Dallas",
+      "phone": 5551112222,
+      "height": 5.11,
+      "married": true
+    },
+    {
+      "id": 6,
+      "fname": "Sarah",
+      "city": "Seattle",
+      "phone": 5554443333,
+      "height": 5.6,
+      "married": false
+    },
+    {
+      "id": 7,
+      "fname": "David",
+      "city": "Miami",
+      "phone": 5556667777,
+      "height": 5.7,
+      "married": true
+    },
+    {
+      "id": 8,
+      "fname": "Jessica",
+      "city": "Boston",
+      "phone": 5559998888,
+      "height": 5.4,
+      "married": false
+    },
+    {
+      "id": 9,
+      "fname": "Kevin",
+      "city": "Atlanta",
+      "phone": 5553332222,
+      "height": 6.1,
+      "married": true
+    },
+    {
+      "id": 10,
+      "fname": "Amanda",
+      "city": "Phoenix",
+      "phone": 5557778888,
+      "height": 5.2,
+      "married": false
+    },
+    {
+      "id": 11,
+      "fname": "Daniel",
+      "city": "Denver",
+      "phone": 5552223333,
+      "height": 5.8,
+      "married": true
+    },
+    {
+      "id": 12,
+      "fname": "Melissa",
+      "city": "Portland",
+      "phone": 5556661111,
+      "height": 5.5,
+      "married": false
+    },
+    {
+      "id": 13,
+      "fname": "Christopher",
+      "city": "Houston",
+      "phone": 5551114444,
+      "height": 6.0,
+      "married": true
+    },
+    {
+      "id": 14,
+      "fname": "Rachel",
+      "city": "San Diego",
+      "phone": 5554447777,
+      "height": 5.7,
+      "married": false
+    },
+    {
+      "id": 15,
+      "fname": "Patrick",
+      "city": "Las Vegas",
+      "phone": 5558889999,
+      "height": 5.9,
+      "married": true
+    },
+    {
+      "id": 16,
+      "fname": "Stephanie",
+      "city": "Orlando",
+      "phone": 5553336666,
+      "height": 5.6,
+      "married": false
+    },
+    {
+      "id": 17,
+      "fname": "Brian",
+      "city": "Austin",
+      "phone": 5556663333,
+      "height": 5.10,
+      "married": true
+    },
+    {
+      "id": 18,
+      "fname": "Michelle",
+      "city": "Philadelphia",
+      "phone": 5559992222,
+      "height": 5.3,
+      "married": false
+    },
+    {
+      "id": 19,
+      "fname": "Andrew",
+      "city": "Charlotte",
+      "phone": 5552229999,
+      "height": 6.2,
+      "married": true
+    },
+    {
+      "id": 20,
+      "fname": "Lauren",
+      "city": "Nashville",
+      "phone": 5557772222,
+      "height": 5.1,
+      "married": false
+    },
+    {
+      "id": 21,
+      "fname": "Joshua",
+      "city": "Raleigh",
+      "phone": 5551117777,
+      "height": 5.8,
+      "married": true
+    },
+    {
+      "id": 22,
+      "fname": "Emma",
+      "city": "Minneapolis",
+      "phone": 5554441111,
+      "height": 5.4,
+      "married": false
+    },
+    {
+      "id": 23,
+      "fname": "Jason",
+      "city": "Salt Lake City",
+      "phone": 5558884444,
+      "height": 5.11,
+      "married": true
+    },
+    {
+      "id": 24,
+      "fname": "Ashley",
+      "city": "Detroit",
+      "phone": 5553338888,
+      "height": 5.5,
+      "married": false
+    },
+    {
+      "id": 25,
+      "fname": "Nicholas",
+      "city": "Kansas City",
+      "phone": 5556665555,
+      "height": 6.0,
+      "married": true
+    },
+    {
+      "id": 26,
+      "fname": "Samantha",
+      "city": "St. Louis",
+      "phone": 5559993333,
+      "height": 5.6,
+      "married": false
+    },
+    {
+      "id": 27,
+      "fname": "Ryan",
+      "city": "San Antonio",
+      "phone": 5552227777,
+      "height": 5.7,
+      "married": true
+    },
+    {
+      "id": 28,
+      "fname": "Vanessa",
+      "city": "Memphis",
+      "phone": 5555551111,
+      "height": 5.8,
+      "married": false
+    },
+    {
+      "id": 29,
+      "fname": "Tyler",
+      "city": "Tampa",
+      "phone": 5558882222,
+      "height": 5.9,
+      "married": true
+    },
+    {
+      "id": 30,
+      "fname": "Kimberly",
+      "city": "Pittsburgh",
+      "phone": 5551115555,
+      "height": 5.10,
+      "married": false
+    },
+    {
+      "id": 31,
+      "fname": "Matthew",
+      "city": "Indianapolis",
+      "phone": 5554448888,
+      "height": 5.11,
+      "married": true
+    },
+    {
+      "id": 32,
+      "fname": "Heather",
+      "city": "Columbus",
+      "phone": 5557774444,
+      "height": 5.2,
+      "married": false
+    },
+    {
+      "id": 33,
+      "fname": "Justin",
+      "city": "New Orleans",
+      "phone": 5552225555,
+      "height": 5.3,
+      "married": true
+    },
+    {
+      "id": 34,
+      "fname": "Hannah",
+      "city": "Baltimore",
+      "phone": 5555552222,
+      "height": 5.4,
+      "married": false
+    },
+    {
+      "id": 35,
+      "fname": "Brandon",
+      "city": "Washington D.C.",
+      "phone": 5558885555,
+      "height": 5.5,
+      "married": true
+    },
+    {
+      "id": 36,
+      "fname": "Kayla",
+      "city": "Seattle",
+      "phone": 5551118888,
+      "height": 5.6,
+      "married": false
+    },
+    {
+      "id": 37,
+      "fname": "Jonathan",
+      "city": "Portland",
+      "phone": 5554441111,
+      "height": 5.7,
+      "married": true
+    },
+    {
+      "id": 38,
+      "fname": "Megan",
+      "city": "San Francisco",
+      "phone": 5557774444,
+      "height": 5.8,
+      "married": false
+    },
+    {
+      "id": 39,
+      "fname": "Jeremy",
+      "city": "Los Angeles",
+      "phone": 5552227777,
+      "height": 5.9,
+      "married": true
+    },
+    {
+      "id": 40,
+      "fname": "Lindsay",
+      "city": "Chicago",
+      "phone": 5555554444,
+      "height": 5.10,
+      "married": false
+    },
+    {
+      "id": 41,
+      "fname": "Eric",
+      "city": "Boston",
+      "phone": 5558881111,
+      "height": 5.11,
+      "married": true
+    },
+    {
+      "id": 42,
+      "fname": "Nicole",
+      "city": "Denver",
+      "phone": 5551118888,
+      "height": 5.1,
+      "married": false
+    },
+    {
+      "id": 43,
+      "fname": "Kyle",
+      "city": "Phoenix",
+      "phone": 5554445555,
+      "height": 5.2,
+      "married": true
+    },
+    {
+      "id": 44,
+      "fname": "Katie",
+      "city": "Dallas",
+      "phone": 5557772222,
+      "height": 5.3,
+      "married": false
+    },
+    {
+      "id": 45,
+      "fname": "Bryan",
+      "city": "Austin",
+      "phone": 5552229999,
+      "height": 5.4,
+      "married": true
+    },
+    {
+      "id": 46,
+      "fname": "Alyssa",
+      "city": "Houston",
+      "phone": 5555556666,
+      "height": 5.5,
+      "married": false
+    },
+    {
+      "id": 47,
+      "fname": "Jeffrey",
+      "city": "Miami",
+      "phone": 5558883333,
+      "height": 5.6,
+      "married": true
+    },
+    {
+      "id": 48,
+      "fname": "Courtney",
+      "city": "Atlanta",
+      "phone": 5551116666,
+      "height": 5.7,
+      "married": false
+    },
+    {
+      "id": 49,
+      "fname": "Timothy",
+      "city": "Detroit",
+      "phone": 5554443333,
+      "height": 5.8,
+      "married": true
+    },
+    {
+      "id": 50,
+      "fname": "Alexis",
+      "city": "Philadelphia",
+      "phone": 5557779999,
+      "height": 5.9,
+      "married": false
+    }
+  ]
+  
