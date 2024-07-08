@@ -4,11 +4,13 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"log"
 	"os"
 	"strconv"
 
-	pb "github.com/ParasJain0307/grpc-project/grpc-server/api" // Replace with your actual package path
+	"github.com/ParasJain0307/grpc-project/grpc-server/internal/logger"
+	"go.uber.org/zap"
+
+	pb "github.com/ParasJain0307/grpc-project/grpc-server/api"
 )
 
 type Database struct {
@@ -17,16 +19,20 @@ type Database struct {
 
 // NewDatabase initializes a new database instance
 func NewDatabase(jsonPath string) (*Database, error) {
+	logger.Info("Initializing new database from JSON file")
+
 	// Read JSON file
 	jsonData, err := os.ReadFile(jsonPath)
 	if err != nil {
-		fmt.Println(err)
+		logger.Error("Failed to read JSON file", zap.Error(err))
 		return nil, fmt.Errorf("error reading JSON file: %v", err)
 	}
+
 	// Unmarshal JSON directly into a slice of map[string]interface{}
 	var users []map[string]interface{}
 	err = json.Unmarshal(jsonData, &users)
 	if err != nil {
+		logger.Error("Failed to unmarshal JSON data", zap.Error(err))
 		return nil, fmt.Errorf("error unmarshalling JSON data: %v", err)
 	}
 
@@ -35,7 +41,8 @@ func NewDatabase(jsonPath string) (*Database, error) {
 	for _, u := range users {
 		id, ok := u["id"].(float64) // assuming "id" field is float64 in JSON
 		if !ok {
-			return nil, fmt.Errorf("error parsing user ID")
+			logger.Warn("Failed to parse user ID")
+			continue
 		}
 		user := &pb.User{
 			Id:      int32(id),
@@ -47,6 +54,7 @@ func NewDatabase(jsonPath string) (*Database, error) {
 		}
 		userMap[user.Id] = user
 	}
+	logger.Info("Database initialization complete")
 	return &Database{
 		users: userMap,
 	}, nil
@@ -54,10 +62,13 @@ func NewDatabase(jsonPath string) (*Database, error) {
 
 // GetUserByID retrieves a user by ID from the datastore
 func (d *Database) GetUserByID(id int32) (*pb.User, error) {
+	logger.Debugf("Fetching user with ID %v", id)
 	user, ok := d.users[id]
 	if !ok {
+		logger.Warnf("User with ID %v not found", id)
 		return nil, errors.New("user not found")
 	}
+	logger.Infof("User with ID %v found", id)
 	return user, nil
 }
 
@@ -68,8 +79,12 @@ func (d *Database) GetUsersByID(ids []int32) ([]*pb.User, error) {
 		user, ok := d.users[id]
 		if ok {
 			users = append(users, user)
+			logger.Debugf("User with ID %v added to result", id)
+		} else {
+			logger.Warnf("User with ID %v not found", id)
 		}
 	}
+	logger.Infof("Retrieved %v users by IDs", len(users))
 	return users, nil
 }
 
@@ -84,9 +99,10 @@ func (d *Database) SearchUsers(criteria []*pb.SearchCriteria) ([]*pb.User, error
 
 	}
 	if len(users) == 0 {
-		return nil, errors.New("Request User Info does not Exist")
+		logger.Warn("No users found matching the criteria")
+		return nil, errors.New("no users found")
 	}
-	log.Println("Counts of the User with given criteria:: ", len(users))
+	logger.Infof("Found %v users matching the criteria", len(users))
 	return users, nil
 }
 
