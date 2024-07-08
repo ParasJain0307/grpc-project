@@ -12,6 +12,7 @@ import (
 
 	pb "github.com/ParasJain0307/grpc-project/grpc-client/api" // Update with your actual package path
 	"github.com/ParasJain0307/grpc-project/grpc-client/internal/utils/logger"
+	"github.com/ParasJain0307/grpc-project/grpc-client/internal/validation"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 )
@@ -68,6 +69,10 @@ func main() {
 				loggerv1.Errorf("Error reading user ID input: %v", err)
 				break
 			}
+			if err := validation.ValidateUserID(userIDInput); err != nil {
+				loggerv1.Errorf("Validation error: %v", err)
+				break
+			}
 			userIDInput = strings.TrimSpace(userIDInput)
 			userID, err := strconv.Atoi(userIDInput)
 			if err != nil {
@@ -93,6 +98,10 @@ func main() {
 					loggerv1.Errorf("Invalid user ID: %v", err)
 					continue
 				}
+				if err := validation.ValidateUserID(idStr); err != nil {
+					loggerv1.Errorf("Validation error: %v", err)
+					break
+				}
 				userIDs = append(userIDs, int32(id))
 			}
 			getUsersByID(client, userIDs)
@@ -102,6 +111,10 @@ func main() {
 			loggerv1.Info("Enter search criteria:")
 			criterias := readSearchCriteria(reader)
 			loggerv1.Infof("Search criteria: %+v", criterias)
+			if err := validation.ValidateSearchCriteria(criterias); err != nil {
+				loggerv1.Errorf("Validation error: %v", err)
+				break
+			}
 			searchUsers(client, criterias)
 
 		case "q":
