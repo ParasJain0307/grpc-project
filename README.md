@@ -20,7 +20,8 @@ Installation
 
 Building and Running the Application
    To build and run the gRPC server:
-    go run cmd/service/main.go
+    make clean
+    make run
 
 The server will start listening on port 50051.
 
@@ -36,7 +37,7 @@ const (
 
 
 Running the Client
-    go run grpc-client/main.go
+    make run
 
 Available Options
     Fetch User by ID: Fetches user details by ID.
