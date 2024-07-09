@@ -7,7 +7,7 @@ Project Structure
 project-root/
 │
 ├── api/
-│ ├── user.proto # gRPC protocol buffer definition.
+│ ├── user.proto # gRPC protocol buffer definition
 │ └── user.pb.go # Generated Go code from the proto file
 │
 ├── cmd/
