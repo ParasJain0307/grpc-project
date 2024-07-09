@@ -5,7 +5,7 @@ This project implements a gRPC service in Go for managing user details and inclu
 
 Project Structure
 
-project-root/
+`project-root/
 │
 ├── api/
 │   ├── user.proto         # gRPC protocol buffer definition
@@ -46,7 +46,7 @@ project-root/
 ├── Dockerfile             # Dockerfile for containerization
 ├── README.md              # Project documentation (this file)
 └── go.mod                 # Go module file
-
+`
 Requirements
  Go version 1.16 or higher.
  Protocol Buffers Compiler (protoc) and Go plugin (protoc-gen-go)
