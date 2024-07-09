@@ -5,48 +5,49 @@ This project implements a gRPC service in Go for managing user details and inclu
 
 Project Structure
 
-`project-root/
+project-root/
 │
 ├── api/
-│   ├── user.proto         # gRPC protocol buffer definition
-│   └── user.pb.go         # Generated Go code from the proto file
+│ ├── user.proto # gRPC protocol buffer definition
+│ └── user.pb.go # Generated Go code from the proto file
 │
 ├── cmd/
-│   └── service/
-│       └── main.go        # Main application entry point
+│ └── service/
+│ └── main.go # Main application entry point
 │
 ├── internal/
-│   ├── service/
-│   │   ├── service.go     # Implementation of gRPC service methods
-│   │   └── user.go        # User management logic
-│   │
-│   ├── datastore/
-│   │   └── datastore.go   # Simulated database logic
-│   │
-│   ├── search/
-│   │   └── search.go      # Implementation of search functionality
-│   │
-│   ├── validation/
-│   │   └── validation.go  # Input validation logic
-│   │
-│   └── utils/
-│       └── utils.go       # Utility functions
+│ ├── service/
+│ │ ├── service.go # Implementation of gRPC service methods
+│ │ └── user.go # User management logic
+│ │
+│ ├── datastore/
+│ │ └── datastore.go # Simulated database logic
+│ │
+│ ├── search/
+│ │ └── search.go # Implementation of search functionality
+│ │
+│ ├── validation/
+│ │ └── validation.go # Input validation logic
+│ │
+│ └── utils/
+│ └── utils.go # Utility functions
 │
 ├── pkg/
-│   └── grpc/
-│       └── middleware.go  # Middleware for gRPC server
+│ └── grpc/
+│ └── middleware.go # Middleware for gRPC server
 │
 ├── tests/
-│   ├── unit/              # Unit tests
-│   └── integration/       # Integration tests
+│ ├── unit/ # Unit tests
+│ └── integration/ # Integration tests
 │
 ├── configs/
-│   └── config.yaml        # Configuration file
+│ └── config.yaml # Configuration file
 │
-├── Dockerfile             # Dockerfile for containerization
-├── README.md              # Project documentation (this file)
-└── go.mod                 # Go module file
-`
+├── Dockerfile # Dockerfile for containerization
+├── README.md # Project documentation (this file)
+└── go.mod # Go module file
+
+
 Requirements
  Go version 1.16 or higher.
  Protocol Buffers Compiler (protoc) and Go plugin (protoc-gen-go)
