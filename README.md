@@ -48,7 +48,7 @@ project-root/
 └── go.mod                 # Go module file
 
 Requirements
- Go version 1.16 or higher
+ Go version 1.16 or higher.
  Protocol Buffers Compiler (protoc) and Go plugin (protoc-gen-go)
 
 
