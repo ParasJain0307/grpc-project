@@ -18,7 +18,7 @@ import (
 )
 
 const (
-	serverAddress = "localhost:50051" // Address of the gRPC server
+	serverAddress = "192.168.58.2:31678" // Address of the gRPC server
 )
 
 var loggerv1 *zap.SugaredLogger
@@ -74,6 +74,7 @@ func main() {
 				break
 			}
 			userIDInput = strings.TrimSpace(userIDInput)
+			loggerv1.Info("After trimm", userIDInput)
 			userID, err := strconv.Atoi(userIDInput)
 			if err != nil {
 				loggerv1.Errorf("Invalid user ID: %v", err)

@@ -11,7 +11,8 @@ import (
 
 // ValidateUserID validates a single user ID.
 func ValidateUserID(userID string) error {
-	id, err := strconv.Atoi(userID)
+	userIDInput := strings.TrimSpace(userID)
+	id, err := strconv.Atoi(userIDInput)
 	if err != nil {
 		return fmt.Errorf("invalid user ID: %v", err)
 	}

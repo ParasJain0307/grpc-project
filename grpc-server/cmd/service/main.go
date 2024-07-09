@@ -5,6 +5,7 @@ import (
 	"net"
 	"os"
 	"os/signal"
+	"path/filepath"
 	"syscall"
 
 	pb "github.com/ParasJain0307/grpc-project/grpc-server/api"
@@ -20,10 +21,16 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to initialize logger: %v", err)
 	}
+
 	// Initialize the simulated Database
-	db, err := database.NewDatabase("/home/paras/grpc-project/backup/grpc-project/grpc-server/internal/utils/simulated_entry.json")
+	jsonFilePath := "internal/utils/simulated_entry.json"
+
+	// Read the contents of simulated.json
+	absJSONFilePath := filepath.Join("/app", jsonFilePath)
+	loggerv1.Infof("Using JSON file path: %s", absJSONFilePath)
+	db, err := database.NewDatabase(absJSONFilePath)
 	if err != nil {
-		loggerv1.Infof("Error while initializing database: %v", err)
+		loggerv1.Errorf("Error while initializing database: %v", err)
 		log.Fatalf("Failed to initialize database: %v", err)
 	}
 
