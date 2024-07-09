@@ -4,10 +4,9 @@ This project implements a gRPC service in Go for managing user details and inclu
 
 
 Project Structure
-
-project-root/\n
-│\n
-├── api/\n
+project-root/
+│
+├── api/
 │ ├── user.proto # gRPC protocol buffer definition
 │ └── user.pb.go # Generated Go code from the proto file
 │
