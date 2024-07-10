@@ -36,10 +36,10 @@ const (
     serverAddress = "localhost:50051"  // Update with your server address
 )
 
-Running the Client
+- Running the Client.
     make run
-    Menu-Driven will be open like.
-    -Fetch User by ID
+    - Menu-Driven will be open like.
+    - Fetch User by ID
     - Fetch Users by IDs <this should be comma separated>
     - Search Users by Criteria <this should key value form refer Ex below>
     - Quit
