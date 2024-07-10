@@ -8,6 +8,7 @@ import (
 	"strconv"
 
 	"github.com/ParasJain0307/grpc-project/grpc-server/internal/logger"
+	"github.com/ParasJain0307/grpc-project/grpc-server/internal/utils"
 	"go.uber.org/zap"
 
 	pb "github.com/ParasJain0307/grpc-project/grpc-server/api"
@@ -120,25 +121,25 @@ func matchCriteria(user *pb.User, criterias []*pb.SearchCriteria) bool {
 // checkSingleCriteria checks if a user matches a single criteria
 func checkSingleCriteria(user *pb.User, criteria *pb.SearchCriteria) bool {
 	switch criteria.FieldName {
-	case "fname":
+	case utils.FIRSTNAME:
 		if user.Fname != criteria.FieldValue {
 			return false
 		}
-	case "city":
+	case utils.CITY:
 		if user.City != criteria.FieldValue {
 			return false
 		}
-	case "phone":
+	case utils.PHONE:
 		phone, err := strconv.ParseInt(criteria.FieldValue, 10, 64)
 		if err != nil || user.Phone != phone {
 			return false
 		}
-	case "height":
+	case utils.HEIGHT:
 		height, err := strconv.ParseFloat(criteria.FieldValue, 32)
 		if err != nil || float32(height) != user.Height {
 			return false
 		}
-	case "married":
+	case utils.MARRIED:
 		married, err := strconv.ParseBool(criteria.FieldValue)
 		if err != nil || user.Married != married {
 			return false

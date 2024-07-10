@@ -26,7 +26,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o server ./cmd/service/main.go
 FROM alpine:latest
 
 # Set environment variables if necessary
-ENV PORT=50051
+
 
 # Create necessary directories
 RUN mkdir -p /app/internal/utils
@@ -38,7 +38,10 @@ COPY --from=builder /app/server /app/server
 COPY --from=builder /app/internal/utils/simulated_entry.json /app/internal/utils/simulated_entry.json
 
 # Expose the port on which the service will run
-EXPOSE $PORT
+EXPOSE 50051
+EXPOSE 8082
+ENV JSON_FILE_PATH /app/internal/utils/simulated_entry.json
+
 
 # Command to run the executable
 CMD ["/app/server"]

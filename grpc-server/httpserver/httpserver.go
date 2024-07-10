@@ -1,4 +1,4 @@
-package main
+package httpserver
 
 import (
 	"context"
@@ -10,17 +10,19 @@ import (
 	"strings"
 
 	pb "github.com/ParasJain0307/grpc-project/grpc-server/api"
-
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/status"
 )
 
 const (
 	grpcServerAddress = "localhost:50051" // Address of your gRPC server
+	httpServerPort    = ":8082"           // Port on which the HTTP server will listen
 )
 
-func main() {
+func HttpServer() {
 	mux := http.NewServeMux()
+
+	// Create a gRPC client connection
 	grpcConn, err := grpc.Dial(grpcServerAddress, grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("Failed to dial gRPC server: %v", err)
@@ -29,49 +31,40 @@ func main() {
 
 	client := pb.NewUserServiceClient(grpcConn)
 
+	// Handler for /user/:id endpoint
 	mux.HandleFunc("/user/", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
 			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 			return
 		}
 
-		// Extract user_id from URL path
-		user_idStr := r.URL.Path[len("/user/"):]
-		user_id, err := strconv.Atoi(user_idStr)
+		userIDStr := r.URL.Path[len("/user/"):]
+		userID, err := strconv.Atoi(userIDStr)
 		if err != nil {
 			http.Error(w, "Invalid user ID", http.StatusBadRequest)
 			return
 		}
 
-		// Call gRPC method GetUserByID with int32 user_id
-		req := &pb.GetUserByIDRequest{UserId: int32(user_id)}
+		req := &pb.GetUserByIDRequest{UserId: int32(userID)}
 		user, err := client.GetUserByID(context.Background(), req)
 		if err != nil {
 			http.Error(w, fmt.Sprintf("Failed to get user: %v", err), http.StatusInternalServerError)
 			return
 		}
 
-		// Return user as JSON response (pretty-printed)
-		w.Header().Set("Content-Type", "application/json")
-		jsonData, err := json.MarshalIndent(user, "", "  ")
-		if err != nil {
-			http.Error(w, fmt.Sprintf("Failed to marshal JSON: %v", err), http.StatusInternalServerError)
-			return
-		}
-		w.Write(jsonData)
+		writeJSONResponse(w, user)
 	})
 
+	// Handler for /users/:ids endpoint
 	mux.HandleFunc("/users/", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
 			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 			return
 		}
 
-		// Extract user_ids from URL path
 		userIDsStr := r.URL.Path[len("/users/"):]
 		userIDs := strings.Split(userIDsStr, ",")
 
-		// Convert userIDs to []int32
 		var userIDsInt32 []int32
 		for _, idStr := range userIDs {
 			id, err := strconv.Atoi(idStr)
@@ -82,25 +75,17 @@ func main() {
 			userIDsInt32 = append(userIDsInt32, int32(id))
 		}
 
-		// Call gRPC method GetUsersByID with []int32 user_ids
 		req := &pb.GetUsersByIDRequest{UserIds: userIDsInt32}
 		usersList, err := client.GetUsersByID(context.Background(), req)
 		if err != nil {
-			st, _ := status.FromError(err)
-			http.Error(w, fmt.Sprintf("Failed to get users: %v", st.Message()), http.StatusInternalServerError)
+			handleGRPCError(w, err)
 			return
 		}
 
-		// Return users as JSON response (pretty-printed)
-		w.Header().Set("Content-Type", "application/json")
-		jsonData, err := json.MarshalIndent(usersList, "", "  ")
-		if err != nil {
-			http.Error(w, fmt.Sprintf("Failed to marshal JSON: %v", err), http.StatusInternalServerError)
-			return
-		}
-		w.Write(jsonData)
+		writeJSONResponse(w, usersList)
 	})
 
+	// Handler for /users/search endpoint
 	mux.HandleFunc("/users/search", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodPost {
 			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
@@ -113,28 +98,39 @@ func main() {
 			return
 		}
 
-		// Call gRPC method SearchUsers with criterias
 		req := &pb.SearchUsersRequest{Criterias: criterias}
 		usersList, err := client.SearchUsers(context.Background(), req)
 		if err != nil {
-			st, _ := status.FromError(err)
-			http.Error(w, fmt.Sprintf("Failed to search users: %v", st.Message()), http.StatusInternalServerError)
+			handleGRPCError(w, err)
 			return
 		}
 
-		// Return users as JSON response (pretty-printed)
-		w.Header().Set("Content-Type", "application/json")
-		jsonData, err := json.MarshalIndent(usersList, "", "  ")
-		if err != nil {
-			http.Error(w, fmt.Sprintf("Failed to marshal JSON: %v", err), http.StatusInternalServerError)
-			return
-		}
-		w.Write(jsonData)
+		writeJSONResponse(w, usersList)
 	})
 
 	// Start HTTP server
-	log.Println("Starting HTTP server on port :8082...")
-	if err := http.ListenAndServe(":8082", mux); err != nil {
+	server := &http.Server{
+		Addr:    httpServerPort,
+		Handler: mux,
+	}
+
+	log.Printf("Starting HTTP server on port %s...\n", httpServerPort)
+	if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 		log.Fatalf("Failed to start HTTP server: %v", err)
 	}
+}
+
+func writeJSONResponse(w http.ResponseWriter, data interface{}) {
+	w.Header().Set("Content-Type", "application/json")
+	jsonData, err := json.MarshalIndent(data, "", "  ")
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Failed to marshal JSON: %v", err), http.StatusInternalServerError)
+		return
+	}
+	w.Write(jsonData)
+}
+
+func handleGRPCError(w http.ResponseWriter, err error) {
+	st, _ := status.FromError(err)
+	http.Error(w, fmt.Sprintf("Failed to execute gRPC request: %v", st.Message()), http.StatusInternalServerError)
 }

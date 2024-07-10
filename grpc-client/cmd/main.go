@@ -18,7 +18,7 @@ import (
 )
 
 const (
-	serverAddress = "localhost:50051" // Address of the gRPC server
+	serverAddress = "localhost:50052" // Address of the gRPC server
 )
 
 var loggerv1 *zap.SugaredLogger

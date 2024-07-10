@@ -11,7 +11,7 @@ import (
 // UserService implements the UserServiceServer interface
 type UserService struct {
 	pb.UnimplementedUserServiceServer
-	Database database.Database // Example simulated datastore
+	Database database.Database
 }
 
 // NewService creates a new UserService instance
