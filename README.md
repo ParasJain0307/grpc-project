@@ -38,11 +38,11 @@ const (
 
 Running the Client
     make run
-    - Menu-Driven will be open like 
-        -Fetch User by ID
-        - Fetch Users by IDs <this should be comma separated>
-        - Search Users by Criteria <this should key value form refer Ex below>
-        - Quit
+    Menu-Driven will be open like.
+    -Fetch User by ID
+    - Fetch Users by IDs <this should be comma separated>
+    - Search Users by Criteria <this should key value form refer Ex below>
+    - Quit
     User can choose the option provide the info and get the desired data.
         For Search Users Input like 
             - Enter search criteria (leave empty to finish):
