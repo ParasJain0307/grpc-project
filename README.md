@@ -75,13 +75,12 @@ Docker Support
 
 To containerize the application using Docker:
     cd grpc-project/grpc-server
-    docker buildx build --load -t grpc-server .
-    docker run -p 50051:50051 -p 8082:8082 -d grpc-server
+    docker buildx build --load -t <image name> .
+    docker run -p 50051:50051 -p 8082:8082 -d <image name>
 
-Once container run and application start we can access the data from server by using HTTP request Endpoint(mentioned above) or GRPC Client
+Once container run and application started we can access the data from server by using HTTP request Endpoint(mentioned above) or GRPC Client  
 
 Replace grpc-project with your preferred image name.
-
 
 Kubernetes Engine Support
     
