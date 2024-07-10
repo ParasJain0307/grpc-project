@@ -37,13 +37,31 @@ const (
 )
 
 Running the Client
-
     make run
+    Menu-Driven will be open like 
+        1. Fetch User by ID
+        2. Fetch Users by IDs <this should be comma separated>
+        3. Search Users by Criteria <this should key value form refer Ex below>
+        q. Quit
+    User can choose the option provide the info and get the desired data.
+        For Search Users Input like 
+            Enter search criteria (leave empty to finish):
+                Field Name (e.g., fname, city, phone, height, married): married
 
 Available Options
 - Fetch User by ID: Fetches user details by ID.
 - Fetch Users by IDs: Fetches details for multiple users by their IDs.
 - Search Users by Criteria: Searches for users based on specific criteria (e.g., city, phone number).
+
+There is another way to access user info without running the server. 
+    Http server is running asynchronous while grpc-server is up and it will expose the Api endpoint through which user can get the data
+    - Fetch User by ID: Fetches user details by ID.
+      GET <localhost:port>/user/{userid}
+    - Fetch Users by IDs: Fetches details for multiple users by their IDs.
+      GET  <localhost:port>/users/{userid1,userid2 ...}
+    - Search Users by Criteria: Searches for users based on specific criteria (e.g., city, phone number).
+      POST <localhost:port>/users/search and in body provide like [{"field_name":"married", "field_value":"true"} ...]
+
 
 API Documentation
 
