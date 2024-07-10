@@ -10,13 +10,14 @@ import (
 	"strings"
 
 	pb "github.com/ParasJain0307/grpc-project/grpc-server/api"
+	"github.com/ParasJain0307/grpc-project/grpc-server/internal/utils"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/status"
 )
 
 const (
-	grpcServerAddress = "localhost:50051" // Address of your gRPC server
-	httpServerPort    = ":8082"           // Port on which the HTTP server will listen
+	grpcServerAddress = utils.GRPCSERVERADDR + utils.GRPCSERVERPORT // Address of your gRPC server
+	httpServerPort    = utils.HTTPSERVERPORT                        // Port on which the HTTP server will listen
 )
 
 func HttpServer() {

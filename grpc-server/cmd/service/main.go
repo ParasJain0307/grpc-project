@@ -12,6 +12,7 @@ import (
 	"github.com/ParasJain0307/grpc-project/grpc-server/internal/database"
 	"github.com/ParasJain0307/grpc-project/grpc-server/internal/logger"
 	"github.com/ParasJain0307/grpc-project/grpc-server/internal/service"
+	"github.com/ParasJain0307/grpc-project/grpc-server/internal/utils"
 	"google.golang.org/grpc"
 )
 
@@ -43,18 +44,15 @@ func main() {
 		Database: *db,
 	})
 
-	// Define the port on which the gRPC server will listen
-	port := ":50051"
-
 	// Start listening for incoming connections on port :50051
-	listener, err := net.Listen("tcp", port)
+	listener, err := net.Listen("tcp", utils.GRPCSERVERPORT)
 	if err != nil {
 		loggerv1.Errorf("Failed to listen: %v", err)
 		log.Fatalf("Failed to listen: %v", err)
 	}
 
 	// Log the gRPC server start
-	loggerv1.Infof("gRPC server is listening on port %s", port)
+	loggerv1.Infof("gRPC server is listening on port %s", utils.GRPCSERVERPORT)
 
 	// Handle OS signals for graceful shutdown of gRPC server
 	go func() {
@@ -67,18 +65,14 @@ func main() {
 
 	// Start the gRPC server in a separate goroutine
 	go func() {
-		// Serve blocks until the server is stopped with `grpcServer.Stop()` or `grpcServer.GracefulStop()`
 		if err := grpcServer.Serve(listener); err != nil {
 			loggerv1.Errorf("Failed to serve gRPC server: %v", err)
 			log.Fatalf("Failed to serve gRPC server: %v", err)
 		}
 	}()
-
-	// Start the HTTP server (assuming it doesn't block)
+	// Calling HttpServer for exposing endpoint to the server asynchronise
 	go httpServer.HttpServer()
 
-	// Block main goroutine until interrupted
-	// This prevents the program from exiting immediately
 	waitForSignal()
 }
 

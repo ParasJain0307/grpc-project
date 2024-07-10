@@ -1,16 +1,19 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: grpc-service
+  name: <Service Name>
   labels:
+    #Label for service. you can edit or add more
     name: grpc-service
     app: grpc-app
 spec:
+  #type of the service. here we are using NodePort
   type: NodePort
   ports:
-  - targetPort: 50051
-    port: 50051
-    nodePort: 31678
+  - targetPort: <target Port on which grpc server listen>
+    port: <Port on which grpc server listen>
+    nodePort: <Node Port for accessing through browser>
   selector:
+    # Labels on which these service applied
     name: grpc-pod-demo
     app: demo-grpc-app

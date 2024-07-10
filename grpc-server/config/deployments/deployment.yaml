@@ -1,27 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: grpc-service-deploy
+  name: <Deployment Name>
   labels:
+    #Label for demo, you can add more 
     name: grpc-pod-demo
     app: demo-grpc-app
 spec:
-  replicas: 1
+  replicas: <Number of replicas>
   selector:
     matchLabels:
+      #Label for demo, you can add more
       name: grpc-pod-demo
       app: demo-grpc-app
   template:
     metadata:
-      name: grpc-app-pod
+      name: <pod name>
+      #Label for demo, you can add more
       labels:
         name: grpc-pod-demo
         app: demo-grpc-app
     spec:
       containers:
-      - name: grpc-server
-        image: paras1008/grpc_project_images:grpc-server
+      - name: <container Name>
+        image: <docker image tag and name>
         ports:
-        - containerPort: 80
+        - containerPort: <Container port>
       imagePullSecrets:
-      - name: grpc-server
+      - name: <Secrets name which have containing your docker hub credentials>
