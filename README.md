@@ -56,11 +56,11 @@ Available Options
 There is another way to access user info without running the server. 
 Http server is running asynchronous while grpc-server is up and it will expose the Api endpoint through which user can get the data
 - Fetch User by ID: Fetches user details by ID.
-      - GET <localhost:port>/user/{userid}
+    GET <localhost:port>/user/{userid}
 - Fetch Users by IDs: Fetches details for multiple users by their IDs.
-      - GET  <localhost:port>/users/{userid1,userid2 ...}
+    GET  <localhost:port>/users/{userid1,userid2 ...}
 - Search Users by Criteria: Searches for users based on specific criteria (e.g., city, phone number).
-      - POST <localhost:port>/users/search and in body provide like [{"field_name":"married", "field_value":"true"} ...]
+    POST <localhost:port>/users/search and in body provide like [{"field_name":"married", "field_value":"true"} ...]
 
 
 API Documentation
